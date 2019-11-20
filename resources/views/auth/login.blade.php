@@ -5,19 +5,28 @@
     <b-row align-h="center">
 
         <b-col cols="8">
-            <b-card>
+            <b-card class="my-3">
                 <b-card-header>{{ __('Login') }}</b-card-header>
 
                 <b-card-body>
                     <b-alert show>
-                        Alerta sdssd
+                        Ingrese sus datos
                     </b-alert>
+                    @if($errors->any())
+                    <b-alert show variant="danger">
+                        <ul class="mb-0">
+                            @foreach($errors->all() as $error)
+                                <li>{{$error}}</li>
+                                @endforeach
+                        </ul>
+                    </b-alert>
+                    @endif
                     <b-form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <b-form-group label="Correo electrónico"
                         label-for="email"
-                        description="dsssdds">
+                        >
                             <b-form-input type="email"
                                           id="email"
                                           name="email"
@@ -32,7 +41,7 @@
                         <b-form-group
                         label="Contraseña"
                         label-for="password"
-                        description="?dssdds">
+                        >
                             <b-form-input type="password"
                             id="password"
                             name="password"

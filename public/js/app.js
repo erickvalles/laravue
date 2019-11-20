@@ -63807,7 +63807,7 @@ var app = new Vue({
   el: '#app',
   methods: {
     salir: function salir() {
-      alert("Saliste bro");
+      document.getElementById('logout-form').submit();
     }
   }
 });

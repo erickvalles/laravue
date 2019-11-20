@@ -20,12 +20,22 @@
 </head>
 <body>
     <div id="app">
-        <b-navbar toggleable type="light" variant="light">
-            <b-navbar-toggle target="nav_text_collapse"></b-navbar-toggle>
+        <b-navbar toggleable="lg" type="dark" variant="primary">
             <b-navbar-brand href="{{url('/')}}">{{config('app.name',"prueba xd")}}</b-navbar-brand>
+
+            <b-navbar-toggle target="nav_text_collapse"></b-navbar-toggle>
+
             <b-collapse is-nav id="nav_text_collapse">
-                <b-navbar-nav>
-                    <b-navbar-text>Texto :o</b-navbar-text>
+                <b-navbar-nav  class="ml-auto">
+                    @guest
+                        <b-nav-item href="{{route('login')}}">Ingresar</b-nav-item>
+                        <b-nav-item href="{{route('register')}}">Registrarme</b-nav-item>
+                    @else
+                        <b-nav-item-dropdown text="Usuario" right>
+                            <b-dropdown-item href="#" @click="salir">Salir</b-dropdown-item>
+                            <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none">@csrf</form>
+                        </b-nav-item-dropdown>
+                    @endguest
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>

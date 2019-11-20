@@ -33,7 +33,7 @@ const app = new Vue({
     el: '#app',
     methods: {
         salir(){
-            alert("Saliste bro");
+            document.getElementById('logout-form').submit();
         }
     }
 });
