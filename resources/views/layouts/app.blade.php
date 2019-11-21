@@ -1,8 +1,9 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-100">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -18,8 +19,8 @@
 
 
 </head>
-<body>
-    <div id="app">
+<body class="h-100">
+    <div id="app" class="h-100">
         <b-navbar toggleable="lg" type="dark" variant="primary">
             <b-navbar-brand href="{{url('/')}}">{{config('app.name',"prueba xd")}}</b-navbar-brand>
 
@@ -40,7 +41,7 @@
             </b-collapse>
         </b-navbar>
 
-        <main class="py-4">
+        <main class="py-0" style="height: calc(100vh - 56px);">
             @yield('content')
         </main>
     </div>
