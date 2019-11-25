@@ -8,33 +8,27 @@
             class="h-100">
                 <p class="card-text">Encabezado y pie de pagina</p>
                 <div slot="footer">
-                    <b-input-group class="mb-0">
-                        <b-form-input type="text" class="text-center"  placeholder="Escribe un mensaje...."></b-form-input>
-                        <b-input-group-append>
-                            <b-button variant="primary">Guardar</b-button>
-                        </b-input-group-append>
+                    <b-form @submit.prevent="postMessages" autocomplete="off">
+                        <b-input-group class="mb-0" >
+                            <b-form-input type="text" v-model="newMessage" class="text-center"  placeholder="Escribe un mensaje...."></b-form-input>
+                            <b-input-group-append>
+                                <b-button variant="primary" type="submit">Guardar</b-button>
+                            </b-input-group-append>
 
-                    </b-input-group>
+                        </b-input-group>
+                    </b-form>
+
 
                 </div>
 
-                <b-media left-align vertical-align="center">
-                    <template v-slot:aside>
-                        <b-img rounded="circle" blank blank-color="#ccc" width="48" alt="placeholder"></b-img>
-                    </template>
-                    <b-card class="mb-2">
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                    </b-card>
-                </b-media>
 
-                <b-media right-align vertical-align="center">
-                    <template v-slot:aside>
-                        <b-img rounded="circle" blank blank-color="#ccc" width="48" alt="placeholder"></b-img>
-                    </template>
-                    <b-card class="mb-2">
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
-                    </b-card>
-                </b-media>
+                <message-conversation-component v-for="message in messages"
+                                                :key="message.id"
+                :written-by-me="message.written_by_me">
+                    {{message.content}}
+                </message-conversation-component>
+
+
 
             </b-card>
         </b-col>
@@ -54,11 +48,32 @@
     export default {
         data(){
             return {
-
+                messages: [],
+                newMessage:'',
             };
         },
         mounted() {
-            console.log("Componente montado, jejeje")
+            this.getMessages();
+        },
+        methods:{
+            getMessages(){
+                axios.get('/api/messages').then((response)=>{
+                    this.messages = response.data
+                });
+            },
+            postMessages(){
+                const params = {
+                    to_id:2,
+                    content:this.newMessage,
+                };
+                axios.post('/api/messages',params)
+                    .then((response)=>{
+                    this.newMessage="";
+                    this.getMessages();
+                }).catch((err)=>{
+                    console.log(err);
+                });
+            },
         }
     }
 

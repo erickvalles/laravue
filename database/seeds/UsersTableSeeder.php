@@ -16,5 +16,10 @@ class UsersTableSeeder extends Seeder
             'email'=>'erickg@valles.udg.mx',
             'password'=>bcrypt('hola')
         ]);
+        \App\User::create([
+        'name'=>'Jorge',
+        'email'=>'ejrgm@valles.udg.mx',
+        'password'=>bcrypt('hola')
+    ]);
     }
 }
